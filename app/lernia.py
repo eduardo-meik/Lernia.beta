@@ -54,7 +54,7 @@ def get_chat_response(nombre_asignatura, topico, campo_amplio, campo_especifico,
 
     try:
         response = client.chat.completions.create(
-            model="gpt-3.5-turbo", #gpt-4-1106-preview
+            model="gpt-3.5-turbo-16k", #gpt-4-1106-preview
             messages=[
                 {"role": "system", "content": system_message},
                 {"role": "user", "content": user_request},
