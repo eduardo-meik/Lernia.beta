@@ -42,11 +42,12 @@ def get_chat_response(nombre_asignatura, topico, campo_amplio, campo_especifico,
         f"focused on '{campo_amplio}', '{campo_especifico}', and '{campo_detallado}'."
     )
     user_request = (
-        f"Considering the subject '{nombre_asignatura}', propose three learning outcomes for "
+        f"Considerando la asignatura '{nombre_asignatura}', propose three learning outcomes for "
         f"each level of the SOLO taxonomy for the topic '{topico}' using the structure Verb + Object + Context. "
         f"Ensure you provide 'Resultados de aprendizaje' for each of the 5 levels of the SOLO taxonomy, generate 3 achievement "
         f"indicators for each of the learning outcomes according to Quality Matters standards. Then, indicate the most "
-        f"relevant active learning methodologies for collecting each of those indicators. Format the response as numbered multilevel lists."
+        f"relevant active learning methodologies for collecting each of those indicators. Format the response as numbered multilevel lists. Remove ###"
+        f"All the answer should be in spanish language. "
     )
 
     prompt = f"{system_message}. For the request: {user_request}"
@@ -82,7 +83,7 @@ def display():
     campo_detallado_seleccionado = st.selectbox("Selecciona un Campo Detallado", campos_detallados)
 
     if st.button("Generar Resultados de Aprendizaje"):
-        with st.spinner('Generando resultados de aprendizaje para el tópico seleccionado...'):
+        with st.spinner('Generando resultados de aprendizaje para el contenido seleccionado. Esto podría tomar unos minutos...'):
             response_text = get_chat_response(
                 nombre_asignatura,
                 topico,
