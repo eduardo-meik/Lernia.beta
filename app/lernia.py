@@ -20,26 +20,36 @@ def download_file_from_url(url, local_path):
     else:
         raise Exception(f"Failed to download file: HTTP {response.status_code}")
 
-def create_word_document(text, nombre_asignatura, campo_amplio, campo_especifico, campo_detallado, topico, firebase_url):
-    local_template_path = 'local_template.docx'
-    download_file_from_url(firebase_url, local_template_path)
+def create_word_document(text, nombre_asignatura, campo_amplio, campo_especifico, campo_detallado, topico):
+    # Create a new Document
+    doc = Document()
 
-    doc = Document(local_template_path)
+    # Add Title
+    title = doc.add_heading(level=1)
+    title_run = title.add_run('Planificación proceso de enseñanza y aprendizaje')
+    title_run.bold = True
+    title_run.font.size = Pt(14)
 
-    for paragraph in doc.paragraphs:
-        if '{nombre_asignatura}' in paragraph.text:
-            paragraph.text = paragraph.text.replace('{nombre_asignatura}', nombre_asignatura)
-        if '{campo_amplio}' in paragraph.text:
-            paragraph.text = paragraph.text.replace('{campo_amplio}', campo_amplio)
-        if '{campo_especifico}' in paragraph.text:
-            paragraph.text = paragraph.text.replace('{campo_especifico}', campo_especifico)
-        if '{campo_detallado}' in paragraph.text:
-            paragraph.text = paragraph.text.replace('{campo_detallado}', campo_detallado)
-        if '{topico}' in paragraph.text:
-            paragraph.text = paragraph.text.replace('{topico}', topico)
+    # Add Introduction Text
+    intro_text = (f"A continuación, encontrará la planificación del proceso de enseñanza y aprendizaje diseñado "
+                  f"por la Learnia para la asignatura {nombre_asignatura}, dentro del campo de conocimiento "
+                  f"{campo_especifico}, {campo_detallado}, para los siguientes Resultados de Aprendizaje del contenido "
+                  f"{topico}:")
+    doc.add_paragraph(intro_text)
 
+    # Add Custom Text
     doc.add_paragraph(text)
 
+    # Add References
+    references = (
+        "Referencias\n\n"
+        "- Biggs J.B., & Collis K.F. (1982). Evaluating the Quality of Learning: The SOLO Taxonomy. New York: Academic Press.\n"
+        "- Campos de educación y capacitación 2013 de la CINE (ISCED-F 2013). Extraído desde https://uis.unesco.org/sites/default/files/documents/isced-fields-of-education-and-training-2013-sp.pdf\n"
+        "- Quality Matters, sitio web https://www.qualitymatters.org/\n"
+    )
+    doc.add_paragraph(references)
+
+    # Save the document to a BytesIO object
     buffer = BytesIO()
     doc.save(buffer)
     buffer.seek(0)
