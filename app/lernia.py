@@ -84,7 +84,6 @@ def display():
     if st.button("Generar Resultados de Aprendizaje"):
         with st.spinner('Generando resultados de aprendizaje para el tópico seleccionado...'):
             response_text = get_chat_response(
-                st.session_state.openai_client,
                 nombre_asignatura,
                 topico,
                 campo_amplio_seleccionado,
@@ -96,11 +95,11 @@ def display():
                 st.write(response_text)
 
                 doc_file = create_education_plan_doc(
-                    nombre_asignatura,
-                    campo_especifico_seleccionado,
-                    campo_detallado_seleccionado,
-                    topico,
-                    response_text
+                    nombre_asignatura=nombre_asignatura,
+                    campo_especifico=campo_especifico_seleccionado,
+                    campo_detallado=campo_detallado_seleccionado,
+                    topico=topico,
+                    response_text=response_text
                 )
 
                 st.download_button(
