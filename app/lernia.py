@@ -73,7 +73,6 @@ def display():
     nombre_asignatura = st.text_input("Nombre de la Asignatura", key="nombre_asignatura_key")
     topico = st.text_input("Introduce un Contenido", key="topico_key")
 
-    # Dictionary cine2013.cine2013 should be defined somewhere in the module cine2013.py
     cmapos_amplios = list(cine2013.cine2013.keys())
     campo_amplio_seleccionado = st.selectbox("Selecciona un Campo Amplio", cmapos_amplios)
     campos_especificos = list(cine2013.cine2013[campo_amplio_seleccionado].keys())
@@ -81,7 +80,7 @@ def display():
     campos_detallados = cine2013.cine2013[campo_amplio_seleccionado][campo_especifico_seleccionado]
     campo_detallado_seleccionado = st.selectbox("Selecciona un Campo Detallado", campos_detallados)
 
-     if st.button("Generar Resultados de Aprendizaje"):
+    if st.button("Generar Resultados de Aprendizaje"):
         with st.spinner('Generando resultados de aprendizaje para el tópico seleccionado...'):
             response_text = get_chat_response(
                 st.session_state.openai_client,
@@ -95,7 +94,6 @@ def display():
             if response_text:
                 st.write(response_text)
 
-                # Create the Word document
                 doc_file = create_education_plan_doc(
                     nombre_asignatura,
                     campo_especifico_seleccionado,
@@ -104,13 +102,9 @@ def display():
                     response_text
                 )
 
-                # Provide the document for download
                 st.download_button(
                     label="Descargar Planificación",
                     data=doc_file,
                     file_name="planificacion_educativa.docx",
                     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 )
-
-if __name__ == "__main__":
-    display()
