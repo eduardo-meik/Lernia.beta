@@ -46,7 +46,7 @@ def get_chat_response(nombre_asignatura, topico, campo_amplio, campo_especifico,
         f"each level of the SOLO taxonomy for the topic '{topico}' using the structure Verb + Object + Context. "
         f"Ensure you provide 'Resultados de aprendizaje' for each of the 5 levels of the SOLO taxonomy, generate 3 achievement "
         f"indicators for each of the learning outcomes according to Quality Matters standards. Then, indicate the most "
-        f"relevant active learning methodologies for collecting each of those indicators. Format the response as numbered multilevel lists. Remove ###"
+        f"relevant active learning methodologies for collecting each of those indicators. Format the response as numbered multilevel lists. Remove ### and * symbols from the answers"
         f"All the answer should be in spanish language. "
     )
 
@@ -102,10 +102,13 @@ def display():
                     topico=topico,
                     response_text=response_text
                 )
+                
+                # Sanitize the topic to create a valid file name
+                safe_topico = re.sub(r'[^\w\s]', '', topico).replace(' ', '_')
 
                 st.download_button(
                     label="Descargar Planificación",
                     data=doc_file,
-                    file_name="planificacion_educativa.docx",
+                    file_name="planificacion_{safe_topico}.docx",
                     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 )
