@@ -62,7 +62,7 @@ def get_chat_response(nombre_asignatura, topico, campo_amplio, campo_especifico,
         return None
 
 def display():
-    st.title("Generador de Resultados de Aprendizaje")
+    #st.title("Generador de Resultados de Aprendizaje")
 
     if 'selected_items' not in st.session_state:
         st.session_state.selected_items = []

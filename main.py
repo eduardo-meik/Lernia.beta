@@ -63,7 +63,7 @@ def main():
     )
 
     if selected == "Inicio":
-        st.title("Inicio")
+        st.title("Generador de Resultados de Aprendizaje")
         display()
     elif selected == "Salir":
         signout()
