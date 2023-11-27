@@ -52,7 +52,7 @@ def get_chat_response(nombre_asignatura, topico, campo_amplio, campo_especifico,
     prompt = f"{system_message}. For the request: {user_request}"
 
     try:
-        response = client.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4-1106-preview",
             messages=[
                 {"role": "system", "content": system_message},
