@@ -68,7 +68,18 @@ def get_chat_response(nombre_asignatura, topico, campo_amplio, campo_especifico,
         return None
 
 def display():
-    st.text("Esta innovadora app de IA te permitirá agilizar los procesos de diseño instruccional a través de la elaboración de resultados de aprendizaje, indicadores de logro de acuerdo y metodologías de aprendizaje activo. Para utilizarla sólo debes seleccionar el nombre de la Asignatura que deseas planificar, el contenido que deseas abordar y el campo de conocimiento en que se enmarca la asignatura que estás planificando (de acuerdo con la Clasificación Internacional Normalizada de la Educación, CINE 2013).Learn-IA te entregará una propuesta de Resultados de Aprendizaje de acuerdo con la taxonomía SOLO (Biggs & Collins 1982) para cada uno de sus niveles. Así también te facilitará Indicadores de Logro que te permitirán medir el logro de esos aprendizajes, elaborados a partir de los estándares Quality Matters. Finalmente, la app también te proporcionará sugerencias de Metodologías de aprendizaje activos centrados en los y las estudiantes que te permitirían alcanzar esos aprendizajes y recoger los indicadores de logro. Finalmente debes seleccionar aquellas que se ajusten al nivel de profundidad y amplitud de conocimiento que deseas alcanzar con tus estudiantes y plantearlas en el syllabus de tu asignatura.")
+    # Using st.markdown with HTML and CSS to center the text
+    st.markdown("""
+        <style>
+        .centered-text {
+            text-align: center;
+        }
+        </style>
+        <div class="centered-text">
+        La app Learn-IA, basada en inteligencia artificial, optimiza el diseño instruccional al ayudar a crear resultados de aprendizaje, indicadores de logro y metodologías de aprendizaje activo. Los usuarios seleccionan el nombre de la asignatura, su contenido y campo de conocimiento según CINE 2013. La app proporciona propuestas de resultados de aprendizaje basadas en la taxonomía SOLO y sugiere indicadores de logro según los estándares de Quality Matters, además de metodologías de aprendizaje activo centradas en los estudiantes. Los usuarios pueden adaptar estas sugerencias para enriquecer el syllabus de su asignatura, adecuándolo al nivel deseado de conocimiento y profundidad. Espera por el archivo word para descargar.
+        </div>
+        """, unsafe_allow_html=True)
+    
     # Initialize session state variables
     if 'response' not in st.session_state:
         st.session_state.response = None
