@@ -13,7 +13,7 @@ def create_education_plan_doc(nombre_asignatura, campo_especifico, campo_detalla
     doc.add_heading('Planificación proceso de enseñanza y aprendizaje', level=1)
 
     intro_text = (f"A continuación, encontrará la planificación del proceso de enseñanza y aprendizaje diseñado "
-                  f"por la Learnia para la asignatura {nombre_asignatura}, dentro del campo de conocimiento "
+                  f"por Learn.IA para la asignatura {nombre_asignatura}, dentro del campo de conocimiento "
                   f"{campo_especifico}, {campo_detallado}, para los siguientes Resultados de Aprendizaje del contenido "
                   f"{topico}:\n")
     doc.add_paragraph(intro_text)
@@ -47,14 +47,14 @@ def get_chat_response(nombre_asignatura, topico, campo_amplio, campo_especifico,
         f"Ensure you provide 'Resultados de aprendizaje' for each of the 5 levels of the SOLO taxonomy, generate 3 achievement "
         f"indicators for each of the learning outcomes according to Quality Matters standards. Then, indicate the most "
         f"relevant active learning methodologies for collecting each of those indicators. Format the response as numbered multilevel lists. Remove ### and * symbols from the answers"
-        f"All the answer should be in spanish language. "
+        f"All the answer should be in spanish language written as a report. "
     )
 
     prompt = f"{system_message}. For the request: {user_request}"
 
     try:
         response = client.chat.completions.create(
-            model="gpt-4-1106-preview",
+            model="gpt-3.5-turbo", #gpt-4-1106-preview
             messages=[
                 {"role": "system", "content": system_message},
                 {"role": "user", "content": user_request},
@@ -84,7 +84,7 @@ def display():
     campo_detallado_seleccionado = st.selectbox("Selecciona un Campo Detallado", campos_detallados)
 
     if st.button("Generar Resultados de Aprendizaje"):
-        with st.spinner('Generando resultados de aprendizaje para el contenido seleccionado. Esto podría tomar unos minutos...'):
+        with st.spinner('Generando resultados de aprendizaje para el contenido seleccionado. Se esta GENERANDO UN ARCHIVO DOCX, esto podría tomar unos minutos...'):
             response_text = get_chat_response(
                 nombre_asignatura,
                 topico,
@@ -110,6 +110,6 @@ def display():
                 st.download_button(
                     label="Descargar Planificación",
                     data=doc_file,
-                    file_name="planificacion_curricular.docx",
+                    file_name="planificacion_instruccional.docx",
                     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 )
