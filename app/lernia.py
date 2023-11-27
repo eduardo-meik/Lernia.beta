@@ -1,41 +1,38 @@
 import streamlit as st
 from openai import OpenAI
+from docx import Document
+from io import BytesIO
 
 # Initialize OpenAI client only once, not inside a function
 client = OpenAI(api_key=st.secrets["openai"]["openai_api_key"])
 
-def create_document(nombre_asignatura, campo_especifico, campo_detallado, topico, response_text):
-    # Create a new Document
+def create_education_plan_doc(nombre_asignatura, campo_especifico, campo_detallado, topico, response_text):
     doc = Document()
     
-    # Title
-    doc.add_heading('Planificación proceso de enseñanza y aprendizaje', 0)
-    
-    p = doc.add_paragraph(
-        f"A continuación, encontrará la planificación del proceso de enseñanza y aprendizaje diseñado por "
-        f"la Learnia para la asignatura {nombre_asignatura}, dentro del campo de conocimiento {campo_especifico}, "
-        f"{campo_detallado}, para los siguientes Resultados de Aprendizaje del contenido {topico}:\n\n"
-        f"Resultados de Aprendizaje, Indicadores de Logro y Metodologías de Aprendizaje Activo\n\n"
-        f"A continuación, la se presenta la propuesta de indicadores de logro y metodologías de aprendizaje activo sugeridas "
-        f"para alcanzar los resultados de aprendizajes definidos:\n"
-        f"{response_text}\n\n"
-    )
-    
-    # Set the font size for the paragraph
-    for run in p.runs:
-        run.font.size = Pt(12)
-    
-    # References Section
-    doc.add_heading('Referencias', level=1)
-    doc.add_paragraph(
-        "- Biggs J.B., & Collis K.F. (1982). Evaluating the Quality of Learning: The SOLO Taxonomy. "
-        "New York: Academic Press.\n"
-        "- Campos de educación y capacitación 2013 de la CINE (ISCED-F 2013). Extraído desde "
-        "https://uis.unesco.org/sites/default/files/documents/isced-fields-of-education-and-training-2013-sp.pdf\n"
-        "- Quality Matters, sitio web https://www.qualitymatters.org/\n"
-    )
-    
-    return doc
+    doc.add_heading('Planificación proceso de enseñanza y aprendizaje', level=1)
+
+    intro_text = (f"A continuación, encontrará la planificación del proceso de enseñanza y aprendizaje diseñado "
+                  f"por la Learnia para la asignatura {nombre_asignatura}, dentro del campo de conocimiento "
+                  f"{campo_especifico}, {campo_detallado}, para los siguientes Resultados de Aprendizaje del contenido "
+                  f"{topico}:\n")
+    doc.add_paragraph(intro_text)
+
+    doc.add_heading('Resultados de Aprendizaje, Indicadores de Logro y Metodologías de Aprendizaje Activo', level=2)
+    doc.add_paragraph("A continuación, se presenta la propuesta de indicadores de logro y metodologías de aprendizaje "
+                      "activo sugeridas para alcanzar los resultados de aprendizajes definidos:")
+    doc.add_paragraph(response_text)
+
+    doc.add_heading('Referencias', level=2)
+    references = ("- Biggs J.B., & Collis K.F. (1982). Evaluating the Quality of Learning: The SOLO Taxonomy. New York: Academic Press.\n"
+                  "- Campos de educación y capacitación 2013 de la CINE (ISCED-F 2013). Extraído desde https://uis.unesco.org/sites/default/files/documents/isced-fields-of-education-and-training-2013-sp.pdf\n"
+                  "- Quality Matters, sitio web https://www.qualitymatters.org/")
+    doc.add_paragraph(references)
+
+    # Save the document to a BytesIO object
+    buffer = BytesIO()
+    doc.save(buffer)
+    buffer.seek(0)
+    return buffer
 
 # Function to get chat response from GPT-4
 def get_chat_response(nombre_asignatura, topico, campo_amplio, campo_especifico, campo_detallado):
@@ -84,33 +81,36 @@ def display():
     campos_detallados = cine2013.cine2013[campo_amplio_seleccionado][campo_especifico_seleccionado]
     campo_detallado_seleccionado = st.selectbox("Selecciona un Campo Detallado", campos_detallados)
 
-    if st.button("Generar Resultados de Aprendizaje"):
-        with st.spinner('Generando... Esto puede tomar unos minutos.'):
+     if st.button("Generar Resultados de Aprendizaje"):
+        with st.spinner('Generando resultados de aprendizaje para el tópico seleccionado...'):
             response_text = get_chat_response(
-                nombre_asignatura, topico, campo_amplio_seleccionado,
-                campo_especifico_seleccionado, campo_detallado_seleccionado
+                st.session_state.openai_client,
+                nombre_asignatura,
+                topico,
+                campo_amplio_seleccionado,
+                campo_especifico_seleccionado,
+                campo_detallado_seleccionado
             )
+
             if response_text:
-        st.write(response_text)
-        
-        # Call function to create the document
-        doc = create_document(
-            nombre_asignatura, campo_especifico_seleccionado,
-            campo_detallado_seleccionado, topico, response_text
-        )
-        
-        # Generate and show the download link
-        st.download_button(
-                label="Descargar Resultados en Word",
-                data=word_file,
-                file_name="resultados_de_aprendizaje.docx",
-                mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-            )
+                st.write(response_text)
+
+                # Create the Word document
+                doc_file = create_education_plan_doc(
+                    nombre_asignatura,
+                    campo_especifico_seleccionado,
+                    campo_detallado_seleccionado,
+                    topico,
+                    response_text
+                )
+
+                # Provide the document for download
+                st.download_button(
+                    label="Descargar Planificación",
+                    data=doc_file,
+                    file_name="planificacion_educativa.docx",
+                    mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                )
 
 if __name__ == "__main__":
     display()
-
-
-
-
-
