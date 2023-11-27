@@ -72,16 +72,17 @@ def display():
     st.markdown("""
         <style>
         .justified-text {
-            text-align: center;
+            text-align: justify;
+            text-justify: inter-word;
         }
         </style>
-        <div class="centered-text">
-        La app Learn-IA, basada en inteligencia artificial, optimiza el diseño instruccional al ayudar a crear resultados de aprendizaje, indicadores de logro y metodologías de aprendizaje activo. Los usuarios seleccionan el nombre de la asignatura, su contenido y campo de conocimiento según CINE 2013. La app proporciona propuestas de resultados de aprendizaje basadas en la taxonomía SOLO y sugiere indicadores de logro según los estándares de Quality Matters, además de metodologías de aprendizaje activo centradas en los estudiantes. Los usuarios pueden adaptar estas sugerencias para enriquecer el syllabus de su asignatura, adecuándolo al nivel deseado de conocimiento y profundidad. 
-        Espera por el archivo word para descargar.
-        
+        <div class="justified-text">
+        La app Learn-IA, basada en inteligencia artificial, optimiza el diseño instruccional al ayudar a crear resultados de aprendizaje, indicadores de logro y metodologías de aprendizaje activo. Los usuarios seleccionan el nombre de la asignatura, su contenido y campo de conocimiento según CINE 2013. La app proporciona propuestas de resultados de aprendizaje basadas en la taxonomía SOLO y sugiere indicadores de logro según los estándares de Quality Matters, además de metodologías de aprendizaje activo centradas en los estudiantes. Los usuarios pueden adaptar estas sugerencias para enriquecer el syllabus de su asignatura, adecuándolo al nivel deseado de conocimiento y profundidad.<br><br>
+        <strong>Espera por el archivo word para descargar.</strong>
         </div>
         """, unsafe_allow_html=True)
-    
+
+    st.write("___" * 34)
     # Initialize session state variables
     if 'response' not in st.session_state:
         st.session_state.response = None
