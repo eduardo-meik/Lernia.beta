@@ -93,7 +93,7 @@ def display():
             )
 
             if response_text:
-                st.write(response_text)
+                #st.write(response_text)
 
                 doc_file = create_education_plan_doc(
                     nombre_asignatura=nombre_asignatura,
@@ -104,11 +104,11 @@ def display():
                 )
                 
                 # Sanitize the topic to create a valid file name
-                safe_topico = re.sub(r'[^\w\s]', '', topico).replace(' ', '_')
+                #safe_topico = re.sub(r'[^\w\s]', '', topico).replace(' ', '_')
 
                 st.download_button(
                     label="Descargar Planificación",
                     data=doc_file,
-                    file_name="planificacion_{safe_topico}.docx",
+                    file_name="planificacion_curricular.docx",
                     mime="application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 )
