@@ -11,7 +11,7 @@ def signout():
     st.success('Gracias por utilizar LernIA')  # Display the logout message
 
 def account():
-    st.title('Lern.IA - asistente virtual')
+    st.title('Learn.IA, Asistente Virtual Instruccional')
 
 # Inserting the centered and justified text at the top of the account page
     st.markdown("""
