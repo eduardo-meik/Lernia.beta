@@ -6,9 +6,10 @@ from firebase_admin import credentials, auth, storage
 
 def signout():
     st.session_state.signout = False
-    st.session_state.signedout = False
+    st.session_state.signedout = True  # Set to True to indicate user has signed out
     st.session_state.username = ''
     st.session_state.login_successful = False  # Reset the login_successful flag
+    st.success('Gracias por utilizar LernIA')  # Display the logout message
 
 def account():
     st.title('Lern.IA - asistente virtual')

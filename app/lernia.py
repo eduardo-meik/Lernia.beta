@@ -71,7 +71,7 @@ def display():
         st.session_state.response = None
 
     nombre_asignatura = st.text_input("Nombre de la Asignatura", key="nombre_asignatura_key")
-    topico = st.text_input("Introduce un Tópico", key="topico_key")
+    topico = st.text_input("Introduce un Contenido", key="topico_key")
 
     campos_amplios = list(cine2013.cine2013.keys())
     campo_amplio_seleccionado = st.selectbox("Selecciona un Campo Amplio", campos_amplios)
