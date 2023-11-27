@@ -104,7 +104,7 @@ def display():
             # Ensure response_text is not None before proceeding
             if response_text:
                 # Display the response text
-                # st.write(response_text)
+                st.write(response_text)
 
                 template_path = 'template.docx'
 
