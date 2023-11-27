@@ -116,22 +116,11 @@ def display():
                 # Display the response text
                 st.write(response_text)
 
-                template_path = 'template.docx'
-
-                # Use the selected values directly
-                campo_amplio_value = campo_amplio_seleccionado
-                campo_especifico_value = campo_especifico_seleccionado
-                campo_detallado_value = campo_detallado_seleccionado
-
                 # Create the Word document
                 word_file = create_word_document(
-                    response_text,  # Use the response text here
+                    response_text,  
                     nombre_asignatura,
-                    campo_amplio_value,
-                    campo_especifico_value,
-                    campo_detallado_value,
                     topico,
-                    template_path
                 )
             
             st.download_button(
