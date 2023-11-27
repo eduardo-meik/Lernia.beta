@@ -11,7 +11,7 @@ def signout():
     st.session_state.login_successful = False  # Reset the login_successful flag
 
 def account():
-    st.title('Tarjeta de presentación en QR')
+    st.title('Lern.IA - asistente virtual')
 
     if 'username' not in st.session_state:
         st.session_state.username = ''
