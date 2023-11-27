@@ -12,14 +12,6 @@ client = OpenAI(
     api_key= st.secrets["openai"]["openai_api_key"],
 )
 
-def download_file_from_url(url, local_path):
-    response = requests.get(url)
-    if response.status_code == 200:
-        with open(local_path, 'wb') as file:
-            file.write(response.content)
-    else:
-        raise Exception(f"Failed to download file: HTTP {response.status_code}")
-
 def create_word_document(text, nombre_asignatura, campo_amplio, campo_especifico, campo_detallado, topico):
     # Create a new Document
     doc = Document()
@@ -104,7 +96,7 @@ def display():
     campo_detallado_seleccionado = st.selectbox("Selecciona un Campo Detallado", campos_detallados)
 
     if st.button("Generar Resultados de Aprendizaje"):
-        with st.spinner('Generando resultados de aprendizaje para el tópico seleccionado...'):
+        with st.spinner('Generando resultados de aprendizaje para el tópico seleccionado, paciencia esto puedo tomar unos minutos...'):
             # Get the response from the chatbot
             response_text = get_chat_response(
                 nombre_asignatura, topico, campo_amplio_seleccionado,
