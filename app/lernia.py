@@ -120,8 +120,8 @@ def display():
                 )
 
 # Running the display function
-if __name__ == "__main__":
-    display()
+# if __name__ == "__main__":
+#     display()
 
 
 
