@@ -1,7 +1,7 @@
 import streamlit as st
 from openai import OpenAI
 from . import cine2013
-
+import requests
 from docx import Document
 from io import BytesIO
 import re
@@ -11,8 +11,19 @@ client = OpenAI(
     api_key= st.secrets["openai"]["openai_api_key"],
 )
 
-def create_word_document(text, nombre_asignatura, campo_amplio, campo_especifico, campo_detallado, topico, template_path):
-    doc = Document(template_path)
+def download_file_from_url(url, local_path):
+    response = requests.get(url)
+    if response.status_code == 200:
+        with open(local_path, 'wb') as file:
+            file.write(response.content)
+    else:
+        raise Exception(f"Failed to download file: HTTP {response.status_code}")
+
+def create_word_document(text, nombre_asignatura, campo_amplio, campo_especifico, campo_detallado, topico, firebase_url):
+    local_template_path = 'local_template.docx'
+    download_file_from_url(firebase_url, local_template_path)
+
+    doc = Document(local_template_path)
 
     for paragraph in doc.paragraphs:
         if '{nombre_asignatura}' in paragraph.text:
