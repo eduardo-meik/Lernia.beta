@@ -63,7 +63,7 @@ def main():
     )
 
     if selected == "Inicio":
-        st.title("Generador de Resultados de Aprendizaje")
+        st.title("Learn-IA, planificador de experiencias de aprendizaje")
         display()
     elif selected == "Salir":
         signout()
