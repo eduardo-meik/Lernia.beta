@@ -2,6 +2,7 @@ import streamlit as st
 from openai import OpenAI
 from docx import Document
 from io import BytesIO
+from . import cine2013
 
 # Initialize OpenAI client only once, not inside a function
 client = OpenAI(api_key=st.secrets["openai"]["openai_api_key"])
