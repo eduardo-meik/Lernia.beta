@@ -1,11 +1,11 @@
+import re
+import os
 import streamlit as st
 from openai import OpenAI
-from . import cine2013
 import requests
 from docx import Document
 from io import BytesIO
-import re
-import os
+from . import cine2013
 
 client = OpenAI(
     api_key= st.secrets["openai"]["openai_api_key"],
