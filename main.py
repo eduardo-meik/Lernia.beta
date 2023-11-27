@@ -64,7 +64,7 @@ def main():
     )
 
     if selected == "Inicio":
-        st.title("Learn-IA, planificador de experiencias de aprendizaje")
+        st.title("Learn.IA, Asistente Instruccional")
         display()
     elif selected == "Salir":
         signout()
