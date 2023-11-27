@@ -71,7 +71,7 @@ def display():
     # Using st.markdown with HTML and CSS to center the text
     st.markdown("""
         <style>
-        .centered-text {
+        .justified-text {
             text-align: center;
         }
         </style>
