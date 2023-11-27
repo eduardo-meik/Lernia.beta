@@ -1,5 +1,5 @@
 import streamlit as st
-import openai
+from openai import OpenAI
 from . import cine2013
 
 from docx import Document
@@ -7,8 +7,9 @@ from io import BytesIO
 import re
 import os
 
-# Define your OpenAI API key
-openai.api_key = st.secrets["openai"]["openai_api_key"]
+client = OpenAI(
+    api_key= st.secrets["openai"]["openai_api_key"],
+)
 
 def create_word_document(text, nombre_asignatura, campo_amplio, campo_especifico, campo_detallado, topico, template_path):
     doc = Document(template_path)
@@ -48,7 +49,7 @@ def get_chat_response(nombre_asignatura, topico, campo_amplio, campo_especifico,
             {"role": "user", "content": user_request},
         ]
 
-        response = openai.ChatCompletion.create(
+        response = client.chat.completions.create(
             model="gpt-4-1106-preview",
             messages=messages,
             seed=123,

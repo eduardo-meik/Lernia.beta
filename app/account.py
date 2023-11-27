@@ -1,4 +1,3 @@
-#account.py
 # account.py
 import streamlit as st
 import firebase_admin
