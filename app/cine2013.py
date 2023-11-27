@@ -33,7 +33,7 @@ cine2013 = {
             '0232 Literatura y lingüística'
         ]
     },
-    '03 03 Ciencias sociales, periodismo e información': {
+    '03 Ciencias sociales, periodismo e información': {
         '031 Ciencias sociales y del comportamiento' : ['0311 Economía', '0312 Ciencias políticas y educación cívica', '0313 Psicología', '0314 Sociología y estudios culturales'],
         '032 Periodismo y comunicación' : ['0321 Periodismo y reportajes', '0322  Bibliotecología, información y archivología']              
     },
