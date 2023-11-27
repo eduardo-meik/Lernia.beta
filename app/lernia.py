@@ -1,6 +1,7 @@
 import streamlit as st
 import openai
-import cine2013
+from . import cine2013
+
 from docx import Document
 from io import BytesIO
 import re
